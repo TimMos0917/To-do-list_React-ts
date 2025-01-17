@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <style>
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f4f8;
             margin: 0;
             padding: 20px;
+                        
         }
         h1 {
             text-align: center;
             color: #333;
+         
         }
         #taskInput {
             width: 300px;
@@ -23,16 +26,17 @@
             border-radius: 5px;
             margin-right: 10px;
             font-size: 16px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
         #addTaskButton {
             padding: 10px 15px;
             background-color: #007bff;
-            color: white;
-            border: none;
+            color: white;           
             border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0.3, 0.1);
         }
         #addTaskButton:hover {
             background-color: #0056b3;
@@ -42,14 +46,14 @@
             padding: 0;
         }
         li {
-            display: flex;
+            display: flex;     
             justify-content: space-between;
             align-items: center;
-            background: white;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: white;          
+            margin: 10px 2px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         }
         .completed {
             text-decoration: line-through;
@@ -59,6 +63,7 @@
             background-color: #28a745;
             color: white;
             border: none;
+            margin-right: 10px;
             border-radius: 8px;
             padding: 5px 10px;
             cursor: pointer;
@@ -85,7 +90,6 @@
     <ul id="taskList"></ul>
 
     <script>
-        // Загрузка задач из LocalStorage при загрузке страницы
         window.onload = function() {
             const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
             tasks.forEach(task => {
@@ -105,6 +109,7 @@
             saveTasks();
         }
 
+
         function addTaskToDOM(taskText, completed) {
             const li = document.createElement('li');
             li.textContent = taskText;
@@ -121,7 +126,7 @@
             const editButton = document.createElement('button');
             editButton.textContent = 'Изменить';
             editButton.onclick = function(event) {
-                event.stopPropagation(); // предотвращаем срабатывание onclick на li
+                event.stopPropagation(); 
                 const newTaskText = prompt('Измените задачу:', taskText);
                 if (newTaskText !== null && newTaskText.trim() !== '') {
                     li.firstChild.textContent = newTaskText;
@@ -132,15 +137,20 @@
             deleteButton.textContent = 'Удалить';
             deleteButton.className = 'delete-button';
             deleteButton.onclick = function(event) {
-                event.stopPropagation(); // предотвращаем срабатывание onclick на li
+                event.stopPropagation(); 
                 li.remove();
                 saveTasks();
             };
 
-            li.appendChild(editButton);
-            li.appendChild(deleteButton);
+            const buttoncontainer = document.createElement('div');
+
+            buttoncontainer.appendChild(editButton);
+            buttoncontainer.appendChild(deleteButton);
+
+            li.appendChild(buttoncontainer);
             document.getElementById('taskList').appendChild(li);
         }
+
 
         function saveTasks() {
             const tasks = [];
