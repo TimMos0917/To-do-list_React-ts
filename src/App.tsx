@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, Typography, Paper } from '@mui/material';
 import './App.css';
 
@@ -28,7 +28,6 @@ function AddBitoc() {
   }, []);
 
   const addTask = () => {
-    <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
     if (taskInput.trim() === '') {
       alert('Введите задачу!');
       return;
